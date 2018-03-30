@@ -10,6 +10,8 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import demo.hero.Hero;
+
 /**
  * 对象流的简单操作
  * @author suxin

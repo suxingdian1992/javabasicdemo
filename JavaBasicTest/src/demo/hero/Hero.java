@@ -1,4 +1,4 @@
-package demo.filetest;
+package demo.hero;
 
 import java.io.Serializable;
 
@@ -14,4 +14,19 @@ public class Hero implements Serializable{
 	private static final long serialVersionUID = 1L;
 	public String name;
     public float hp;
+    
+    public Hero() {
+    	  
+    }
+  
+    // 增加一个初始化name的构造方法
+    public Hero(String name) {
+  
+        this.name = name;
+    }
+  
+    // 重写toString方法
+    public String toString() {
+        return name;
+    }
 }
