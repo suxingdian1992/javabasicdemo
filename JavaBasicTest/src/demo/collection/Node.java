@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * 节点
+ * 节点 二叉树排序测试
  * @author suxin
  *
  */
@@ -22,29 +22,33 @@ public class Node {
 	 */
 	public void add(Object v) {
 		// 如果当前节点没有值，就把数据放在当前节点上
-        if (null == value) {
-        	value = v;
-        }
-        // 如果当前节点有值，就进行判断，新增的值与当前值的大小关系
-        else {
-            // 新增的值，比当前值小或者相同
-             
-            if ((Integer) v -((Integer)value) <= 0) {
-                if (null == leftNode)
-                    leftNode = new Node();
-                leftNode.add(v);
-            }
-            // 新增的值，比当前值大
-            else {
-                if (null == rightNode)
-                    rightNode = new Node();
-                rightNode.add(v);
-            }
-  
-        }
+		if (null == value) {
+			value = v;
+		} else {// 如果当前节点有值，就进行判断，新增的值与当前值的大小关系
+			// 新增的值，比当前值小或者相同
+
+			if ((Integer) v - ((Integer) value) <= 0) {
+				if (null == leftNode)
+					leftNode = new Node();
+				leftNode.add(v);
+			}
+			// 新增的值，比当前值大
+			else {
+				if (null == rightNode)
+					rightNode = new Node();
+				rightNode.add(v);
+			}
+
+		}
 	}
 	
-	//遍历二叉树
+	/**
+	 * 遍历二叉树
+	 * 中序遍历：左中右
+	 * 左序遍历：中左右
+	 * 右序遍历：左右中
+	 * @return
+	 */
 	public List<Object> values() {
 		List<Object> result = new ArrayList<Object>();
 		if(this.leftNode!=null) {
@@ -60,7 +64,7 @@ public class Node {
 	}
 	
 	public static void main(String[] args) {
-		Random rd = new Random();
+		Random rd = new Random();//产生四万个随机数
 		int[] x = new int[40000];
 		for (int i = 0; i < 40000; i++) {
 			x[i]=10000+rd.nextInt((40000-10000+1));
@@ -89,7 +93,6 @@ public class Node {
 		}
 		end = System.currentTimeMillis();
 		System.out.println("冒泡排序耗时："+(end-start)+"ms");
-		System.out.print(x[35000]);
 		
 	}
 }
