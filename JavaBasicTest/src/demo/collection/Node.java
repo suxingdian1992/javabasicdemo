@@ -4,38 +4,40 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import demo.hero.Item;
+
 /**
  * 节点 二叉树排序测试
  * @author suxin
  *
  */
-public class Node {
+public class Node<T extends Comparable> {
 
-	public Node leftNode;//当前节点的左节点
+	public Node<T> leftNode;//当前节点的左节点
 	
-	public Node rightNode;//当前节点的右节点
+	public Node<T> rightNode;//当前节点的右节点
 	
-	public Object value;//当前节点内部存放的对象
+	public T value;//当前节点内部存放的对象
 	
 	/**
 	 * 插入排序，如果插入的值比当前值小则放在左边，大的话则放在右边
 	 */
-	public void add(Object v) {
+	public void add(T v) {
 		// 如果当前节点没有值，就把数据放在当前节点上
 		if (null == value) {
 			value = v;
 		} else {// 如果当前节点有值，就进行判断，新增的值与当前值的大小关系
 			// 新增的值，比当前值小或者相同
 
-			if ((Integer) v - ((Integer) value) <= 0) {
+			if (v.compareTo(value) <= 0) {
 				if (null == leftNode)
-					leftNode = new Node();
+					leftNode = new Node<T>();
 				leftNode.add(v);
 			}
 			// 新增的值，比当前值大
 			else {
 				if (null == rightNode)
-					rightNode = new Node();
+					rightNode = new Node<T>();
 				rightNode.add(v);
 			}
 
@@ -43,7 +45,7 @@ public class Node {
 	}
 	
 	/**
-	 * 遍历二叉树
+	 * 中序遍历二叉树
 	 * 中序遍历：左中右
 	 * 左序遍历：中左右
 	 * 右序遍历：左右中
@@ -94,5 +96,20 @@ public class Node {
 		end = System.currentTimeMillis();
 		System.out.println("冒泡排序耗时："+(end-start)+"ms");
 		
+		Node<Comparable> name = new Node<Comparable>();
+		name.chapter1();
+	}
+	
+	/**
+	 * 使用泛型来修改之后的二叉排序树如何实现排序
+	 */
+	public void chapter1() {
+		Node<Item> binaryTree = new Node<Item>();
+		for (int i = 0; i < 10; i++) {
+			int x = (int)((Math.random()*(100-10+1))+10);
+			Item v = new Item("item"+x,x);
+			binaryTree.add(v);
+		}
+		System.out.println(binaryTree.values());
 	}
 }

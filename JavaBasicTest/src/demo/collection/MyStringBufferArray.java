@@ -188,5 +188,30 @@ public class MyStringBufferArray implements IsStringBuffer {
         end = System.currentTimeMillis();
         System.out.println("使用StringBuffer连接耗时（毫秒）："+(end-start));
     }
+	
+	/**
+	 * 在ascii范围的字符内生成长度是2的随机字符串
+	 * @param length
+	 * @return
+	 */
+	public static String randomString(int length) {
+        String pool = "";
+        for (short i = '0'; i <= '9'; i++) {
+            pool += (char) i;
+        }
+        for (short i = 'a'; i <= 'z'; i++) {
+            pool += (char) i;
+        }
+        for (short i = 'A'; i <= 'Z'; i++) {
+            pool += (char) i;
+        }
+        char cs[] = new char[length];
+        for (int i = 0; i < cs.length; i++) {
+            int index = (int) (Math.random() * pool.length());
+            cs[i] = pool.charAt(index);
+        }
+        String result = new String(cs);
+        return result;
+    }
 
 }

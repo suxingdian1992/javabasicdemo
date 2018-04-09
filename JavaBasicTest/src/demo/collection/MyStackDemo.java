@@ -14,17 +14,17 @@ public class MyStackDemo implements MyStack {
 	LinkedList<Hero> myStack = new LinkedList<Hero>();
 
 	@Override
-	public void push(Hero h) {
+	public synchronized void push(Hero h) {
 		myStack.addLast(h);//放在最后一位
 	}
 
 	@Override
-	public Hero pull() {
+	public synchronized Hero pull() {
 		return myStack.pollLast();//弹出最后一个
 	}
 
 	@Override
-	public Hero peek() {
+	public synchronized Hero peek() {
 		return myStack.peekLast();//弹出最后一个
 	}
 
