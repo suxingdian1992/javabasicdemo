@@ -20,14 +20,45 @@ public class Hero extends LOL implements Serializable,Comparable<Hero>{
     	  
     }
   
-  //回血
-    public void recover(){
-        hp=hp+1;
+    public synchronized void recover() {
+        hp = hp + 1;
+        System.out.printf("%s 回血1点,增加血后，%s的血量是%.0f%n", name, name, hp);
+        // 通知那些等待在this对象上的线程，可以醒过来了，如第20行，等待着的减血线程，苏醒过来
+        this.notify();
     }
-     
-    //掉血
-    public void hurt(){
-        hp=hp-1;
+    
+    public synchronized void recover1() {
+        
+        if(hp > 1000) {
+    		try {
+    			//告诉想要占用这个对象的线程，这里不可以用了
+				this.wait();
+				
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	}else {
+    		hp = hp + 1;
+    		this.notify();
+            System.out.printf("%s 回血1点,增加血后，%s的血量是%.0f%n", name, name, hp);
+    	}
+    }
+ 
+    public synchronized void hurt() {
+        if (hp < 0) {
+            try {
+                // 让占有this的减血线程，暂时释放对this的占有，并等待
+                this.wait();
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }else {
+        	hp = hp - 1;
+            System.out.printf("%s 减血1点,减少血后，%s的血量是%.0f%n", name, name, hp);
+            this.notify();//降低血量之后告诉加血进程当前对象可以继续操作
+        }
     }
     
     // 增加一个初始化name的构造方法
