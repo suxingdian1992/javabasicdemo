@@ -16,6 +16,12 @@ public class Hero extends LOL implements Serializable,Comparable<Hero>{
     public float hp;
     public int damage;
     
+    public static String copyRight;
+    static {
+    	copyRight = "LOL Tencent";
+    	System.out.println(copyRight);
+    }
+    
     public Hero() {
     	  
     }
