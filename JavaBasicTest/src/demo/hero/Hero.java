@@ -2,16 +2,25 @@ package demo.hero;
 
 import java.io.Serializable;
 
+import demo.hibernate_annotation.MyColumn;
+import demo.hibernate_annotation.MyEntity;
+import demo.hibernate_annotation.MyGeneratedValue;
+import demo.hibernate_annotation.MyId;
+import demo.hibernate_annotation.MyTable;
+
 /**
  * 英雄的共性类
  * @author suxin
  *
  */
+@MyEntity
+@MyTable(name="hero_")
 public class Hero extends LOL implements Serializable,Comparable<Hero>{
 	/**
 	 * 表示当前这个类的版本，如果新设置了属性，就一个该修改这个版本号
 	 */
 	private static final long serialVersionUID = 1L;
+	private int id;
 	public String name;
     public float hp;
     public int damage;
@@ -22,7 +31,42 @@ public class Hero extends LOL implements Serializable,Comparable<Hero>{
     	System.out.println(copyRight);
     }
     
-    public Hero() {
+    @MyId
+    @MyGeneratedValue(strategy = "identity")
+    @MyColumn("id_")
+    public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public float getHp() {
+		return hp;
+	}
+
+	public void setHp(float hp) {
+		this.hp = hp;
+	}
+	@MyColumn("damage_")
+	public int getDamage() {
+		return damage;
+	}
+
+	public void setDamage(int damage) {
+		this.damage = damage;
+	}
+
+	public static String getCopyRight() {
+		return copyRight;
+	}
+
+	public static void setCopyRight(String copyRight) {
+		Hero.copyRight = copyRight;
+	}
+
+	public Hero() {
     	  
     }
   
@@ -114,5 +158,12 @@ public class Hero extends LOL implements Serializable,Comparable<Hero>{
  
     public boolean isDead() {
         return 0>=hp?true:false;
+    }
+    @MyColumn("name_")
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
     }
 }
